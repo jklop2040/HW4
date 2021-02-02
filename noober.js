@@ -6,21 +6,52 @@ async function pageLoaded() {
   console.dir(json)
   
 
-  for (let i = 0; i < json.rides.length; i++) {
-    let rides = json.rides[i]
-    let outputElement = document.querySelector('.rides')
+  for (let i = 0; i < json.length; i++) {
+    ride = json[i]
+  }
+
+  let outputElement = document.querySelector('.rides')
+
+  for (let n=0; n<ride.length; n++) {
+    passenger = ride[n]
+    if (ride.length>1) {
+      levelofService = 'Noober Pool'
+    } else if (ride[0].purpleRequested){
+      levelofService = 'Noober Purple'
+    } else if (ride[0].numberOfPassengers > 3) {
+      levelofService = 'Noober XL'
+    } else levelofService = 'Noober X'
+  
     outputElement.insertAdjacentHTML('beforeend', `
-      <div class="p-4 w-full md:w-1/2 lg:w-1/3">
-        <div class="border h-full p-4 flex flex-col">
-          <h2 class="text-lg font-bold mb-4">${product.name}</h2>
-          <div class="mb-4"><img src=${product.image}>
-          </div>
-          <div class="mb-4 text-gray-900">${product.description}</div>
-          <div class="mt-auto text-purple-500 text-2xl">${product.price}</div>
-        </div>
+    <h1 class="inline-block mt-8 px-4 py-2 rounded-xl text-2xl bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
+    <i class="fas fa-car-side"></i>
+    <span>${levelofService}</span>
+  </h1>
+
+  <div class="border-4 border-gray-900 p-4 my-4 text-left">
+    <div class="flex">
+      <div class="w-1/2">
+        <h2 class="text-2xl py-1">Foghorn Leghorn</h2>
+        <p class="font-bold text-gray-600">(312) 555-1212</p>
       </div>
-      
-      
+      <div class="w-1/2 text-right">
+        <span class="rounded-xl bg-gray-600 text-white p-2">
+          2 passengers
+        </span>
+      </div>
+    </div>
+    <div class="mt-4 flex">
+      <div class="w-1/2">
+        <div class="text-sm font-bold text-gray-600">PICKUP</div>
+        <p>123 Main St</p>
+        <p>Chicago, IL 60603</p>
+      </div>
+      <div class="w-1/2">
+        <div class="text-sm font-bold text-gray-600">DROPOFF</div>
+        <p>123 Main St</p>
+        <p>Chicago, IL 60603</p>
+      </div>
+    </div>
     `)
   }
 
