@@ -5,7 +5,7 @@ async function pageLoaded() {
   // writes the returned JSON to the console
   console.dir(json)
  
-  // Leg Assignment type
+  // 3 functions to apply levelOfService, ride type and purple border
   function renderLevelOfService (levelOfService) {
     outputElement.insertAdjacentHTML('beforeend', `
     <h1 class="inline-block mt-8 px-4 py-2 rounded-xl text-2xl bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
