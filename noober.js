@@ -5,55 +5,68 @@ async function pageLoaded() {
   // writes the returned JSON to the console
   console.dir(json)
   
+  let outputElement = document.querySelector('.rides')
 
   for (let i = 0; i < json.length; i++) {
     ride = json[i]
-  }
+    console.log('ride: ', ride)
+    for (let n=0; n<ride.length; n++) {
+      passenger = ride[n]
+      console.log('passenger: ', passenger)
+          
+      if (ride.length>1) {
+        levelofService = 'Noober Pool'
+      } else if (ride[0].purpleRequested){
+        levelofService = 'Noober Purple'
+      } else if (ride[0].numberOfPassengers > 3) {
+        levelofService = 'Noober XL'
+      } else levelofService = 'Noober X'
 
-  let outputElement = document.querySelector('.rides')
-
-  for (let n=0; n<ride.length; n++) {
-    passenger = ride[n]
-    if (ride.length>1) {
-      levelofService = 'Noober Pool'
-    } else if (ride[0].purpleRequested){
-      levelofService = 'Noober Purple'
-    } else if (ride[0].numberOfPassengers > 3) {
-      levelofService = 'Noober XL'
-    } else levelofService = 'Noober X'
+      
+      
+      //legs
+          
+      let outputElement = document.querySelector('.rides')
+      outputElement.insertAdjacentHTML('beforeend', `
+      <h1 class="inline-block mt-8 px-4 py-2 rounded-xl text-2xl bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
+      <i class="fas fa-car-side"></i>
+      <span>${levelofService}</span>
+    </h1>
   
-    outputElement.insertAdjacentHTML('beforeend', `
-    <h1 class="inline-block mt-8 px-4 py-2 rounded-xl text-2xl bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
-    <i class="fas fa-car-side"></i>
-    <span>${levelofService}</span>
-  </h1>
-
-  <div class="border-4 border-gray-900 p-4 my-4 text-left">
-    <div class="flex">
-      <div class="w-1/2">
-        <h2 class="text-2xl py-1">Foghorn Leghorn</h2>
-        <p class="font-bold text-gray-600">(312) 555-1212</p>
+    <div class="border-4 border-gray-900 p-4 my-4 text-left">
+      <div class="flex">
+        <div class="w-1/2">
+          <h2 class="text-2xl py-1">${passenger.passengerDetails.first} ${passenger.passengerDetails.last}</h2>
+          <p class="font-bold text-gray-600">${passenger.passengerDetails.phoneNumber}</p>
+        </div>
+        <div class="w-1/2 text-right">
+          <span class="rounded-xl bg-gray-600 text-white p-2">
+          ${passenger.numberOfPassengers}
+          </span>
+        </div>
       </div>
-      <div class="w-1/2 text-right">
-        <span class="rounded-xl bg-gray-600 text-white p-2">
-          2 passengers
-        </span>
+      <div class="mt-4 flex">
+        <div class="w-1/2">
+          <div class="text-sm font-bold text-gray-600">PICKUP</div>
+          <p>${passenger.pickupLocation.address}</p>
+          <p>${passenger.pickupLocation.city}, ${passenger.pickupLocation.state} ${passenger.pickupLocation.zip}</p>
+        </div>
+        <div class="w-1/2">
+          <div class="text-sm font-bold text-gray-600">DROPOFF</div>
+          <p>${passenger.dropoffLocation.address}</p>
+          <p>${passenger.dropoffLocation.city}, ${passenger.dropoffLocation.state} ${passenger.dropoffLocation.zip}</p>
+        </div>
       </div>
-    </div>
-    <div class="mt-4 flex">
-      <div class="w-1/2">
-        <div class="text-sm font-bold text-gray-600">PICKUP</div>
-        <p>123 Main St</p>
-        <p>Chicago, IL 60603</p>
-      </div>
-      <div class="w-1/2">
-        <div class="text-sm font-bold text-gray-600">DROPOFF</div>
-        <p>123 Main St</p>
-        <p>Chicago, IL 60603</p>
-      </div>
-    </div>
-    `)
+      `)
+    
+    }
   }
+
+ 
+
+  
+  
+  
 
   // 🔥 start here: write code to loop through the rides
   
